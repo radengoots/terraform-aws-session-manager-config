@@ -1,6 +1,6 @@
 # terraform-aws-session-manager-config
 
-[![Terraform Version](https://img.shields.io/badge/Terraform%20Version->=0.12.0,<0.13.0-blue.svg)](https://releases.hashicorp.com/terraform/)
+[![Terraform Version](https://img.shields.io/badge/Terraform%20Version->=0.13.0,<=0.13.7-blue.svg)](https://releases.hashicorp.com/terraform/)
 [![Release](https://img.shields.io/github/release/traveloka/terraform-aws-session-manager-config.svg)](https://github.com/traveloka/terraform-aws-session-manager-config/releases)
 [![Last Commit](https://img.shields.io/github/last-commit/traveloka/terraform-aws-session-manager-config.svg)](https://github.com/traveloka/terraform-aws-session-manager-config/commits/master)
 [![Issues](https://img.shields.io/github/issues/traveloka/terraform-aws-session-manager-config.svg)](https://github.com/traveloka/terraform-aws-session-manager-config/issues)
@@ -18,7 +18,6 @@ This terraform module creates configuration for session manager preferences or l
 - [Table of Content](#table-of-content)
 - [Dependencies](#dependencies)
 - [Terraform Version](#terraform-version)
-- [Authors](#authors)
 - [Requirements](#requirements)
 - [Providers](#providers)
 - [Modules](#modules)
@@ -26,6 +25,7 @@ This terraform module creates configuration for session manager preferences or l
 - [Inputs](#inputs)
 - [Outputs](#outputs)
 - [Contributing](#contributing)
+- [Authors](#authors)
 - [License](#license)
 
 
@@ -35,11 +35,7 @@ This Terraform module have no dependencies to another modules
 
 
 ## Terraform Version
-This module was created on 03/14/2019. The latest stable version of Terraform which this module tested working is Terraform 0.12.31 on 16/09/2021
-
-
-## Authors
-* [Bernard](https://github.com/SiahaanBernard)
+This module was created on 03/14/2019. The latest stable version of Terraform which this module tested working is Terraform 0.13.7 on 17/09/2021
 
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
@@ -47,7 +43,7 @@ This module was created on 03/14/2019. The latest stable version of Terraform wh
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.12 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 1.36.0 |
 
 ## Providers
@@ -101,6 +97,9 @@ No modules.
 ## Contributing
 
 This module accepting or open for any contributions from anyone, please see the [CONTRIBUTING.md](https://github.com/traveloka/terraform-aws-session-manager-config/blob/master/CONTRIBUTING.md) for more detail about how to contribute to this module.
+
+## Authors
+* [Bernard](https://github.com/SiahaanBernard)
 
 ## License
 

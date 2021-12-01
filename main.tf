@@ -19,6 +19,19 @@ resource "aws_s3_bucket" "this" {
     enabled = var.s3_enable_versioning
   }
 
+  lifecycle_rule {
+    enabled                                = var.s3_enable_expiration
+    abort_incomplete_multipart_upload_days = 30
+
+    expiration {
+      days = var.s3_expiration_days
+    }
+
+    noncurrent_version_expiration {
+      days = var.s3_expiration_days
+    }
+  }
+
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
@@ -40,6 +53,18 @@ resource "aws_s3_bucket_public_access_block" "this" {
 resource "aws_s3_bucket_policy" "this" {
   bucket = aws_s3_bucket.this.id
   policy = data.aws_iam_policy_document.s3_bucket.json
+}
+
+resource "aws_cloudwatch_log_group" "this" {
+  name              = local.cwl_log_group_name
+  retention_in_days = local.cwl_logs_retention_days
+
+  tags = {
+    ProductDomain = var.product_domain
+    Environment   = var.environment
+    Name          = local.cwl_log_group_name
+    Description   = "Log group that store session manager logs"
+  }
 }
 
 resource "aws_ssm_document" "this" {
@@ -64,8 +89,9 @@ resource "aws_ssm_document" "this" {
         "s3BucketName": "${local.s3_bucket_name}",
         "s3KeyPrefix": "${var.s3_bucket_prefix}",
         "s3EncryptionEnabled": true,
-        "cloudWatchLogGroupName": "",
-        "cloudWatchEncryptionEnabled": false
+        "cloudWatchLogGroupName": "${local.cwl_log_group_name}",
+        "cloudWatchEncryptionEnabled": false,
+        "cloudWatchStreamingEnabled": true
     }
 }
 DOC

@@ -8,7 +8,7 @@ data "aws_iam_role" "super_admin" {
 
 data "aws_iam_policy_document" "session_manager" {
   # This policy is mostly copied from arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM version 8
-  # Some statements were removed and specific S3 bucket added to reduce privilege
+  # Update the statement to allow cloudwatch logs as logs destination.
   statement {
     sid    = "AllowSSMActions"
     effect = "Allow"
@@ -95,6 +95,33 @@ data "aws_iam_policy_document" "session_manager" {
       aws_s3_bucket.this.arn,
       "${aws_s3_bucket.this.arn}/*",
     ]
+  }
+
+  statement {
+    sid    = "AllowCWLLogging"
+    effect = "Allow"
+
+    actions = [
+      "logs:CreateLogStream",
+      "logs:PutLogEvents"
+    ]
+
+    resources = [
+      aws_cloudwatch_log_group.this.arn,
+      "${aws_cloudwatch_log_group.this.arn}:log-stream:*"
+    ]
+  }
+
+  statement {
+    sid    = "AllowCWLReadAccess"
+    effect = "Allow"
+
+    actions = [
+      "logs:DescribeLogGroups",
+      "logs:DescribeLogStreams",
+    ]
+
+    resources = ["*"]
   }
 }
 

@@ -42,3 +42,15 @@ variable "s3_sse_algorithm" {
   default     = "AES256"
   type        = string
 }
+
+variable "s3_expiration_days" {
+  description = "Number of days to automate logs removal from s3 bucket"
+  default     = 365
+  type        = number
+}
+
+variable "s3_enable_expiration" {
+  description = "You need to set this variable to true if you want to set s3_expiration_days"
+  default     = false
+  type        = bool
+}

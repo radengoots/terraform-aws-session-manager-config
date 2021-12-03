@@ -69,7 +69,7 @@ No modules.
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.s3_bucket](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.session_manager](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_iam_role.super_admin](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_role) | data source |
+| [aws_iam_role.s3_delete_allowed_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_role) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
@@ -80,6 +80,7 @@ No modules.
 | <a name="input_product_domain"></a> [product\_domain](#input\_product\_domain) | product domain who owns this SSM Session Manager Configuration | `string` | n/a | yes |
 | <a name="input_s3_bucket_description"></a> [s3\_bucket\_description](#input\_s3\_bucket\_description) | description for this bucket. | `string` | `"s3 bucket to store SSM session manager logs"` | no |
 | <a name="input_s3_bucket_prefix"></a> [s3\_bucket\_prefix](#input\_s3\_bucket\_prefix) | (Optional) To write output to a sub-dir, enter a sub-dir name. | `string` | `""` | no |
+| <a name="input_s3_delete_permission_role_name"></a> [s3\_delete\_permission\_role\_name](#input\_s3\_delete\_permission\_role\_name) | AWS IAM role name that given access to delete the s3 bucket/object(s) | `string` | `"SuperAdmin"` | no |
 | <a name="input_s3_enable_expiration"></a> [s3\_enable\_expiration](#input\_s3\_enable\_expiration) | You need to set this variable to true if you want to set s3\_expiration\_days | `bool` | `false` | no |
 | <a name="input_s3_enable_versioning"></a> [s3\_enable\_versioning](#input\_s3\_enable\_versioning) | Enable versioning for this bucket | `string` | `"true"` | no |
 | <a name="input_s3_expiration_days"></a> [s3\_expiration\_days](#input\_s3\_expiration\_days) | Number of days to automate logs removal from s3 bucket | `number` | `365` | no |

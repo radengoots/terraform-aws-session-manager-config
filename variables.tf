@@ -54,3 +54,9 @@ variable "s3_enable_expiration" {
   default     = false
   type        = bool
 }
+
+variable "s3_delete_permission_role_name" {
+  description = "AWS IAM role name that given access to delete the s3 bucket/object(s)"
+  default     = "SuperAdmin"
+  type        = string
+}

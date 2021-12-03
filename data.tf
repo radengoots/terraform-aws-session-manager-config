@@ -2,8 +2,8 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
-data "aws_iam_role" "super_admin" {
-  name = "SuperAdmin"
+data "aws_iam_role" "s3_delete_allowed_role" {
+  name = var.s3_delete_permission_role_name
 }
 
 data "aws_iam_policy_document" "session_manager" {
@@ -151,7 +151,7 @@ data "aws_iam_policy_document" "s3_bucket" {
       variable = "aws:userId"
 
       values = [
-        "${data.aws_iam_role.super_admin.id}:*", #SuperAdminRoleId
+        "${data.aws_iam_role.s3_delete_allowed_role.id}:*", #SuperAdminRoleId
       ]
     }
   }

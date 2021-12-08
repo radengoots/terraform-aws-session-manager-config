@@ -91,7 +91,10 @@ resource "aws_ssm_document" "this" {
         "s3EncryptionEnabled": true,
         "cloudWatchLogGroupName": "${local.cwl_log_group_name}",
         "cloudWatchEncryptionEnabled": false,
-        "cloudWatchStreamingEnabled": true
+        "cloudWatchStreamingEnabled": true,
+        "shellProfile":{
+          "linux":"bash"
+        }
     }
 }
 DOC

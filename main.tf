@@ -93,7 +93,7 @@ resource "aws_ssm_document" "this" {
         "cloudWatchEncryptionEnabled": false,
         "cloudWatchStreamingEnabled": true,
         "shellProfile":{
-          "linux":"bash"
+          "linux":"bash;echo \"Note that all session activity is being logged.\""
         }
     }
 }

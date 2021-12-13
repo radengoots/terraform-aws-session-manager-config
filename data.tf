@@ -151,7 +151,7 @@ data "aws_iam_policy_document" "s3_bucket" {
       variable = "aws:userId"
 
       values = [
-        "${data.aws_iam_role.s3_delete_allowed_role.id}:*", #SuperAdminRoleId
+        "${data.aws_iam_role.s3_delete_allowed_role.unique_id}:*", #SuperAdminRoleId
       ]
     }
   }

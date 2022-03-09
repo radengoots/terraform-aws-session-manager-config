@@ -78,26 +78,6 @@ data "aws_iam_policy_document" "session_manager" {
   }
 
   statement {
-    sid    = "AllowS3Logging"
-    effect = "Allow"
-
-    actions = [
-      "s3:AbortMultipartUpload",
-      "s3:GetBucketLocation",
-      "s3:GetEncryptionConfiguration",
-      "s3:ListBucket",
-      "s3:ListBucketMultipartUploads",
-      "s3:ListMultipartUploadParts",
-      "s3:PutObject",
-    ]
-
-    resources = [
-      aws_s3_bucket.this.arn,
-      "${aws_s3_bucket.this.arn}/*",
-    ]
-  }
-
-  statement {
     sid    = "AllowCWLLogging"
     effect = "Allow"
 

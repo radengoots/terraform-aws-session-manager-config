@@ -45,7 +45,7 @@ variable "s3_sse_algorithm" {
 
 variable "s3_expiration_days" {
   description = "Number of days to automate logs removal from s3 bucket"
-  default     = 120
+  default     = 1
   type        = number
 }
 

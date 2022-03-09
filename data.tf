@@ -104,35 +104,3 @@ data "aws_iam_policy_document" "session_manager" {
     resources = ["*"]
   }
 }
-
-data "aws_iam_policy_document" "s3_bucket" {
-  statement {
-    sid    = "DenyDeleteExceptFromSuperAdmin"
-    effect = "Deny"
-
-    principals {
-      type        = "*"
-      identifiers = ["*"]
-    }
-
-    actions = [
-      "s3:DeleteBucket",
-      "s3:DeleteObject",
-      "s3:DeleteObjectVersion",
-    ]
-
-    resources = [
-      "arn:aws:s3:::${local.s3_bucket_name}/*",
-      "arn:aws:s3:::${local.s3_bucket_name}",
-    ]
-
-    condition {
-      test     = "StringNotLike"
-      variable = "aws:userId"
-
-      values = [
-        "${data.aws_iam_role.s3_delete_allowed_role.unique_id}:*", #SuperAdminRoleId
-      ]
-    }
-  }
-}

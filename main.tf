@@ -10,6 +10,8 @@ resource "aws_s3_bucket" "this" {
     ManagedBy     = "terraform"
   }
 
+  force_destroy = true
+
   logging {
     target_bucket = local.s3_logging_bucket
     target_prefix = "${local.s3_bucket_name}/"

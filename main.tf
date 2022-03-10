@@ -92,7 +92,7 @@ resource "aws_ssm_document" "this" {
         "cloudWatchEncryptionEnabled": false,
         "cloudWatchStreamingEnabled": true,
         "shellProfile":{
-          "linux":"bash"
+          "linux":"bash; stty -echo; read SQITCH_PASSOWRD; stty echo;"
         }
     }
 }

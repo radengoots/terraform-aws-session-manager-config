@@ -45,13 +45,13 @@ variable "s3_sse_algorithm" {
 
 variable "s3_expiration_days" {
   description = "Number of days to automate logs removal from s3 bucket"
-  default     = 365
+  default     = 90
   type        = number
 }
 
 variable "s3_enable_expiration" {
   description = "You need to set this variable to true if you want to set s3_expiration_days"
-  default     = false
+  default     = true
   type        = bool
 }
 
@@ -59,4 +59,10 @@ variable "s3_delete_permission_role_name" {
   description = "AWS IAM role name that given access to delete the s3 bucket/object(s)"
   default     = "SuperAdmin"
   type        = string
+}
+
+variable "cwl_logs_retention_days" {
+  description = "Retention period for cloudwatch logs"
+  default     = 120
+  type        = number
 }

@@ -32,6 +32,8 @@ resource "aws_s3_bucket" "this" {
     }
   }
 
+  force_destroy = true
+
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
@@ -57,7 +59,7 @@ resource "aws_s3_bucket_policy" "this" {
 
 resource "aws_cloudwatch_log_group" "this" {
   name              = local.cwl_log_group_name
-  retention_in_days = local.cwl_logs_retention_days
+  retention_in_days = var.cwl_logs_retention_days
 
   tags = {
     ProductDomain = var.product_domain
@@ -86,9 +88,6 @@ resource "aws_ssm_document" "this" {
     "description": "${var.ssm_document_description}",
     "sessionType": "Standard_Stream",
     "inputs": {
-        "s3BucketName": "${local.s3_bucket_name}",
-        "s3KeyPrefix": "${var.s3_bucket_prefix}",
-        "s3EncryptionEnabled": true,
         "cloudWatchLogGroupName": "${local.cwl_log_group_name}",
         "cloudWatchEncryptionEnabled": false,
         "cloudWatchStreamingEnabled": true,

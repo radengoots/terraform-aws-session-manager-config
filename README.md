@@ -84,7 +84,7 @@ No modules.
 | <a name="input_s3_delete_permission_role_name"></a> [s3\_delete\_permission\_role\_name](#input\_s3\_delete\_permission\_role\_name) | AWS IAM role name that given access to delete the s3 bucket/object(s) | `string` | `"SuperAdmin"` | no |
 | <a name="input_s3_enable_expiration"></a> [s3\_enable\_expiration](#input\_s3\_enable\_expiration) | You need to set this variable to true if you want to set s3\_expiration\_days | `bool` | `true` | no |
 | <a name="input_s3_enable_versioning"></a> [s3\_enable\_versioning](#input\_s3\_enable\_versioning) | Enable versioning for this bucket | `string` | `"true"` | no |
-| <a name="input_s3_expiration_days"></a> [s3\_expiration\_days](#input\_s3\_expiration\_days) | Number of days to automate logs removal from s3 bucket | `number` | `90` | no |
+| <a name="input_s3_expiration_days"></a> [s3\_expiration\_days](#input\_s3\_expiration\_days) | Number of days to automate logs removal from s3 bucket | `number` | `1` | no |
 | <a name="input_s3_sse_algorithm"></a> [s3\_sse\_algorithm](#input\_s3\_sse\_algorithm) | Encryption algorithm used for this bucket | `string` | `"AES256"` | no |
 | <a name="input_session_manager_document_name"></a> [session\_manager\_document\_name](#input\_session\_manager\_document\_name) | The name of SSM document for session manager, this default name is the one allowed by AWS | `string` | `"SSM-SessionManagerRunShell"` | no |
 | <a name="input_ssm_document_description"></a> [ssm\_document\_description](#input\_ssm\_document\_description) | description for ssm document | `string` | `"document to hold regional session manager preferences"` | no |

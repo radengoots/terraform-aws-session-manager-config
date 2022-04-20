@@ -45,7 +45,7 @@ variable "s3_sse_algorithm" {
 
 variable "s3_expiration_days" {
   description = "Number of days to automate logs removal from s3 bucket"
-  default     = 1
+  default     = 365
   type        = number
 }
 
@@ -65,4 +65,16 @@ variable "cwl_logs_retention_days" {
   description = "Retention period for cloudwatch logs"
   default     = 120
   type        = number
+}
+
+variable "keep_old_s3_bucket" {
+  description = "Option to keep old s3 bucket, by moved old state to new one"
+  default     = false
+  type        = bool
+}
+
+variable "additional_shell_profile_commands" {
+  description = "Additional command to run on shell startup, by default only `bash` command will run in every startup"
+  default     = []
+  type        = list(string)
 }

@@ -1,3 +1,8 @@
+output "s3_bucket_name" {
+  value       = length(aws_s3_bucket.this) > 0 ? aws_s3_bucket.this[0].id : null
+  description = "the name of s3 bucket"
+}
+
 output "iam_policy_name" {
   value       = local.iam_policy_name
   description = "the name of iam policy for allowing session manager access"

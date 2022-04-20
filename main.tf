@@ -1,3 +1,65 @@
+resource "aws_s3_bucket" "this" {
+  count  = var.keep_old_s3_bucket ? 1 : 0
+  acl    = "private"
+  bucket = local.s3_bucket_name
+
+  tags = {
+    Name          = local.s3_bucket_name
+    ProductDomain = var.product_domain
+    Environment   = var.environment
+    Description   = var.s3_bucket_description
+    ManagedBy     = "terraform"
+  }
+
+  logging {
+    target_bucket = local.s3_logging_bucket
+    target_prefix = "${local.s3_bucket_name}/"
+  }
+
+  versioning {
+    enabled = var.s3_enable_versioning
+  }
+
+  lifecycle_rule {
+    enabled                                = var.s3_enable_expiration
+    abort_incomplete_multipart_upload_days = 30
+
+    expiration {
+      days = var.s3_expiration_days
+    }
+
+    noncurrent_version_expiration {
+      days = var.s3_expiration_days
+    }
+  }
+
+  force_destroy = true
+
+  server_side_encryption_configuration {
+    rule {
+      apply_server_side_encryption_by_default {
+        sse_algorithm = var.s3_sse_algorithm
+      }
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "this" {
+  count  = var.keep_old_s3_bucket ? 1 : 0
+  bucket = aws_s3_bucket.this[count.index].id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_policy" "this" {
+  count  = var.keep_old_s3_bucket ? 1 : 0
+  bucket = aws_s3_bucket.this[count.index].id
+  policy = data.aws_iam_policy_document.s3_bucket.json
+}
+
 resource "aws_cloudwatch_log_group" "this" {
   name              = local.cwl_log_group_name
   retention_in_days = var.cwl_logs_retention_days
@@ -33,7 +95,7 @@ resource "aws_ssm_document" "this" {
         "cloudWatchEncryptionEnabled": false,
         "cloudWatchStreamingEnabled": true,
         "shellProfile":{
-          "linux":"bash"
+          "linux":"${join("\\n", concat(["bash"], var.additional_shell_profile_commands))}"
         }
     }
 }

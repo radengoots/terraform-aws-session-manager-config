@@ -2,6 +2,10 @@ data "aws_caller_identity" "current" {}
 
 data "aws_region" "current" {}
 
+data "aws_iam_role" "s3_delete_allowed_role" {
+  name = var.s3_delete_permission_role_name
+}
+
 data "aws_iam_policy_document" "session_manager" {
   # This policy is mostly copied from arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM version 8
   # Update the statement to allow cloudwatch logs as logs destination.
@@ -98,5 +102,37 @@ data "aws_iam_policy_document" "session_manager" {
     ]
 
     resources = ["*"]
+  }
+}
+
+data "aws_iam_policy_document" "s3_bucket" {
+  statement {
+    sid    = "DenyDeleteExceptFromSuperAdmin"
+    effect = "Deny"
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    actions = [
+      "s3:DeleteBucket",
+      "s3:DeleteObject",
+      "s3:DeleteObjectVersion",
+    ]
+
+    resources = [
+      "arn:aws:s3:::${local.s3_bucket_name}/*",
+      "arn:aws:s3:::${local.s3_bucket_name}",
+    ]
+
+    condition {
+      test     = "StringNotLike"
+      variable = "aws:userId"
+
+      values = [
+        "${data.aws_iam_role.s3_delete_allowed_role.unique_id}:*", #SuperAdminRoleId
+      ]
+    }
   }
 }

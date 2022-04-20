@@ -103,6 +103,6 @@ DOC
 }
 
 resource "aws_iam_policy" "this" {
-  name   = local.iam_policy_name
+  name   = var.custom_iam_policy_name != "" ? var.custom_iam_policy_name : local.iam_policy_name
   policy = data.aws_iam_policy_document.session_manager.json
 }

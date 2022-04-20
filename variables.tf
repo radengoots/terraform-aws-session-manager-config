@@ -1,3 +1,8 @@
+variable "custom_iam_policy_name" {
+  default     = ""
+  description = "(Optional) To define a different IAM policy name for other requirement (e.g resource region migration)"
+}
+
 variable "s3_bucket_prefix" {
   default     = ""
   description = "(Optional) To write output to a sub-dir, enter a sub-dir name."

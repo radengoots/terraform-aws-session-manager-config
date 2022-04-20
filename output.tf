@@ -4,7 +4,7 @@ output "s3_bucket_name" {
 }
 
 output "iam_policy_name" {
-  value       = local.iam_policy_name
+  value       = aws_iam_policy.this.name
   description = "the name of iam policy for allowing session manager access"
 }
 
